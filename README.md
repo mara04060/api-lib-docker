@@ -9,71 +9,36 @@
 
 ## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Проект выполнен полностью на Laravel
+<p />
+Используються тлько самы необходимые компоненты , для валидации входных картинок в виде строки с преобразованием в файл (сохранения в файловой системы хост площадки).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<h3>Реализованно </h3>
+Cледующее:
+<p /> http://api-lib.loc/api/v1.0/book/all - Чтение всех книг GET
+ <p />   http://api-lib.loc/api/v1.0/book/user/{id} - Все книги которые добавил этот пользователь GET
+ <p />  http://api-lib.loc/api/v1.0/book/add - Добавление книги методом POST
+<p />    http://api-lib.loc/api/v1.0/book/{id} - Редактирование книги  PUT
+<p />    http://api-lib.loc/api/v1.0/book/{id} - Удаление книги DELETE
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+ <p />   http://api-lib.loc/api/v1.0/author/all - Все авторы GET
+<p />   http://api-lib.loc/api/v1.0/author/book/{id} - Все книги определенного автора GET
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+<p />    http://api-lib.loc/api/v1.0/auth/login - Авторизация  POST
+<p />     http://api-lib.loc/api/v1.0/auth/registration - Регистрация   POST
+ <p />     http://api-lib.loc/api/v1.0/auth/logout - Выход (выход из- под логина )   POST
+   <p />    http://api-lib.loc/api/v1.0/auth/refresh - Обновление Токена   POST
+  <p />      http://api-lib.loc/api/v1.0/auth/m - Инфа о пользователе    POST
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-- [云软科技](http://www.yunruan.ltd/)
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+  <h2>Установка</h2>
+<p> 1) Клонируем содержимое репозитория себе на компьютер.
+<p> 2) Запускаем терминал из текущей директории где склонирован репозиторий.
+<p> 3) Сбоку можно запустить в Докере <b>docer-compose up</b>
+<p />4) Проект будет доступен по адресу http://0.0.0.0/api/v1.0/book/all
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
