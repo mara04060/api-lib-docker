@@ -23,7 +23,18 @@ Route::group(['prefix'=>'api/v1.0'], function()
     Route::get('/author/all', 'AuthorController@index');
     Route::get('/author/book/{id}', 'AuthorController@author_in_books');
 
-//    Route::get('/author/book/{id}', 'AuthorController@author_in_books');
+
+
+
+    Route::group([
+        'prefix' => 'auth'
+    ], function () {
+        Route::post('login', 'AuthController@login');
+        Route::post('registration', 'AuthController@registration');
+        Route::post('logout', 'AuthController@logout');
+        Route::post('refresh', 'AuthController@refresh');
+        Route::post('me', 'AuthController@me');
+    });
 
 });
 
