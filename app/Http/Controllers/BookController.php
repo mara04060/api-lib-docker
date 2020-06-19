@@ -26,7 +26,7 @@ class BookController extends Controller
     public function index()
     {
         if (! $token = JWTAuth::parseToken()) {
-            return response()->json($request, 403);
+            return response()->json('Error Anauthorized', 403);
         }
         $user_id = auth()->user()->id;
 
