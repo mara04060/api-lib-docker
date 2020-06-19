@@ -48,7 +48,10 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        $book = Book::create($request->validated());
+
+        $arr_req = $request->validated();
+        $arr_req['book_cover'] = $this->base64_to_file($arr_req['book_cover'] );
+        $book = Book::create($arr_req);
         return response()->json($book, 201);
     }
 
@@ -62,7 +65,7 @@ class BookController extends Controller
         if(!empty($id)) {
 
             $book = Book::findOrFail($id);
-            return response()->json($request->validated()); exit();
+
             $book->fill($request->only([
                 'user_id',
                 'name',
@@ -70,7 +73,7 @@ class BookController extends Controller
                 'book_cover',
                 'author_id'])
             );
-
+            $book->book_cover = $this->base64_to_file($request->validated()->book_cover);
             $book->save();
             return response()->json($book);
         }
@@ -88,9 +91,25 @@ class BookController extends Controller
     {
         if(!empty($id)) {
             $book = Book::findOrFail($id);
+            unlink(env('PATH_IMAGE').$book->book_cover);
             if($book->delete()) return response(null, 204);
         }
         return response(null, 404);
-
     }
+
+    /**
+     * @param $base64_string
+     * @param $output_file
+     * @return mixed
+     */
+    function base64_to_file($base64_string) {
+        $output_file = md5("".rand(1,999).time().date("ssiihhDDmmYYYY").rand(1,999)).".png";
+        $ifp = fopen(env('PATH_IMAGE').$output_file, "w");
+        chmod(''.env('PATH_IMAGE').$output_file, 0777);
+        $data = explode(',', $base64_string);
+        fwrite($ifp, base64_decode($data[0]));
+        fclose($ifp);
+        return $output_file;
+    }
+
 }

@@ -17,18 +17,15 @@ Route::group(['prefix'=>'api/v1.0'], function()
     Route::get('/book/all', 'BookController@all_book');
     Route::get('/book/user/{id}', 'BookController@index');
     Route::post('/book/add', 'BookController@store');
-    Route::post('/book/{id}', 'BookController@update');
+    Route::put('/book/{id}', 'BookController@update');
     Route::delete('/book/{id}', 'BookController@destroy');
 
     Route::get('/author/all', 'AuthorController@index');
     Route::get('/author/book/{id}', 'AuthorController@author_in_books');
 
 
+    Route::group(['prefix' => 'auth'], function () {
 
-
-    Route::group([
-        'prefix' => 'auth'
-    ], function () {
         Route::post('login', 'AuthController@login');
         Route::post('registration', 'AuthController@registration');
         Route::post('logout', 'AuthController@logout');
