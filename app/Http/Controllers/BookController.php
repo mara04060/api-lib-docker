@@ -6,8 +6,11 @@ use App\Book;
 use App\User;
 
 use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
+use App\Http\Requests\AuthRequestt;
 use App\Http\Requests\BookRequest;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
+//use Tymon\JWTAuth\JWTAuth;
 
 
 //
@@ -25,7 +28,7 @@ class BookController extends Controller
         if($user_id > 0) {
             $book = Book::where('user_id', $user_id)->get();
             if(empty($book->toArray())) {
-//                return abort(404);
+
                 return response()->json([],404);
             }
             return response()->json($book);
@@ -49,6 +52,10 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
 
+
+        if (! $token = JWTAuth::parseToken()) {
+            return response()->json($request, 403);
+        }
         $arr_req = $request->validated();
         $arr_req['book_cover'] = $this->base64_to_file($arr_req['book_cover'] );
         $book = Book::create($arr_req);
@@ -59,14 +66,17 @@ class BookController extends Controller
     public function update(StoreBookRequest $request, int $id)
     {
         if(!empty($id)) {
+
+            if (! $token = JWTAuth::parseToken()) {
+                return response()->json($request, 403);
+            }
+
             $book = Book::findOrFail($id);
             $arr_req = $request->validated();
             if(!empty($arr_req)) {
                 $arr_req['book_cover'] = $this->base64_to_file($arr_req['book_cover'] );
             }
-
             $book->fill($arr_req);
-
             $book->save();
             return response()->json($book);
         }
@@ -82,6 +92,10 @@ class BookController extends Controller
      */
     public function destroy(int $id)
     {
+        if (! $token = JWTAuth::parseToken()) {
+            return response()->json($request, 403);
+        }
+
         if(!empty($id)) {
             $book = Book::findOrFail($id);
             unlink(env('PATH_IMAGE').$book->book_cover);

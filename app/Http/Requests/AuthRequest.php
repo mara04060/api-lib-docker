@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use http\Env\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BookRequest extends FormRequest
+class AuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class BookRequest extends FormRequest
      */
     public function authorize()
     {
-        return true; //false
+        return false; //false
     }
 
     /**
@@ -22,14 +22,11 @@ class BookRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(Request $request)
+    public function rules()
     {
         return [
-            'name' => 'required|string',
-            'quantity_page' => 'integer|min:3',
-            'book_cover' => 'base_64'
+
         ];
-        //base_64 register ServiceProvider
     }
 
 }

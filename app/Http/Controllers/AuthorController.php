@@ -4,11 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use App\Book;
-use App\User;
-
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
-use App\Http\Requests\BookRequest;
 
 
 
