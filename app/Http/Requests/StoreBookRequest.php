@@ -13,7 +13,7 @@ class StoreBookRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return true; //false
     }
 
     /**
@@ -24,11 +24,13 @@ class StoreBookRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer|exists:users,id',
-            'author_id' => 'required|integer|exists:authors,id',
-            'name' => 'required|string',
-            'quantity_page' => 'required|integer|min:3',
+            'user_id' => 'sometimes|integer|exists:users,id',
+            'author_id' => 'sometimes|integer|exists:authors,id',
+            'name' => 'sometimes|string',
+            'quantity_page' => 'sometimes|integer|min:3',
             'book_cover' => 'sometimes|base64dimensions:min_width=2,min_height=2'
         ];
+        //base_64 register ServiceProvider
     }
+
 }

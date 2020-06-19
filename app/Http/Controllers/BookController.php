@@ -55,25 +55,18 @@ class BookController extends Controller
         return response()->json($book, 201);
     }
 
-    /**
-     * @param BookRequest $request
-     * @param Book $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(UpdateBookRequest $request, int $id)
+
+    public function update(StoreBookRequest $request, int $id)
     {
         if(!empty($id)) {
-
             $book = Book::findOrFail($id);
+            $arr_req = $request->validated();
+            if(!empty($arr_req)) {
+                $arr_req['book_cover'] = $this->base64_to_file($arr_req['book_cover'] );
+            }
 
-            $book->fill($request->only([
-                'user_id',
-                'name',
-                'quantity_page',
-                'book_cover',
-                'author_id'])
-            );
-            $book->book_cover = $this->base64_to_file($request->validated()->book_cover);
+            $book->fill($arr_req);
+
             $book->save();
             return response()->json($book);
         }

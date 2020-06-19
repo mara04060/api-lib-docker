@@ -24,11 +24,17 @@ class UpdateBookRequest extends FormRequest
     public function rules()
     {
         return [
-//            'user_id' => 'sometimes|integer|exists:users,id',
-//            'author_id' => 'sometimes|integer|exists:authors,id',
-//            'name' => 'sometimes|string',
-//            'quantity_page' => 'sometimes|integer|min:3',
-//            'book_cover' => 'sometimes|base64dimensions:min_width=2,min_height=2'
+//            'user_id' => 'integer|exists:users,id',
+//            'author_id' => 'integer|exists:authors,id',
+//            'name' => 'string',
+//            'quantity_page' => 'integer|min:3',
+//            'book_cover' => 'base64dimensions:min_width=2,min_height=2'
+
+            'user_id' => 'sometimes|integer|exists:users,id',
+            'author_id' => 'sometimes|integer|exists:authors,id',
+            'name' => 'sometimes|string',
+            'quantity_page' => 'sometimes|integer|min:3',
+            'book_cover' => 'sometimes|base64dimensions:min_width=2,min_height=2'
         ];
     }
 }
