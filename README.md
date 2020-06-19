@@ -15,23 +15,24 @@
 
 <h3>Реализованно </h3>
 Cледующее:
-<p /> http://api-lib.loc/api/v1.0/book/all - Чтение всех книг GET
- <p />   http://api-lib.loc/api/v1.0/book/user/{id} - Все книги которые добавил этот пользователь GET
- <p />  http://api-lib.loc/api/v1.0/book/add - Добавление книги методом POST
-<p />    http://api-lib.loc/api/v1.0/book/{id} - Редактирование книги  PUT
-<p />    http://api-lib.loc/api/v1.0/book/{id} - Удаление книги DELETE
+<p /> http://api-lib.loc/api/v1.0/book/all - Чтение всех книг GET (без авторизации)
+ <p />   http://api-lib.loc/api/v1.0/book/user - Все книги которые добавил текущий залогиненный пользователь GET
+  (Залогиненный)
+ <p />  http://api-lib.loc/api/v1.0/book/add - Добавление книги методом POST (Залогиненный)
+<p />    http://api-lib.loc/api/v1.0/book/{id} - Редактирование книги  PUT (Залогиненный)
+<p />    http://api-lib.loc/api/v1.0/book/{id} - Удаление книги DELETE (Залогиненный)
 
- <p />   http://api-lib.loc/api/v1.0/author/all - Все авторы GET
-<p />   http://api-lib.loc/api/v1.0/author/book/{id} - Все книги определенного автора GET
+ <p />   http://api-lib.loc/api/v1.0/author/all - Все авторы GET (без авторизации)
+<p />   http://api-lib.loc/api/v1.0/author/book/{id} - Все книги определенного автора GET (без авторизации)
 
 
 
 
-<p />    http://api-lib.loc/api/v1.0/auth/login - Авторизация  POST
-<p />     http://api-lib.loc/api/v1.0/auth/registration - Регистрация   POST
- <p />     http://api-lib.loc/api/v1.0/auth/logout - Выход (выход из- под логина )   POST
-   <p />    http://api-lib.loc/api/v1.0/auth/refresh - Обновление Токена   POST
-  <p />      http://api-lib.loc/api/v1.0/auth/m - Инфа о пользователе    POST
+<p />    http://api-lib.loc/api/v1.0/auth/login - Авторизация  POST (Не авторизированный)
+<p />     http://api-lib.loc/api/v1.0/auth/registration - Регистрация   POST (Незарегистрированный)
+ <p />     http://api-lib.loc/api/v1.0/auth/logout - Выход (выход из- под логина )   POST (Залогиненный)
+   <p />    http://api-lib.loc/api/v1.0/auth/refresh - Обновление Токена   POST (Залогиненный)
+  <p />      http://api-lib.loc/api/v1.0/auth/m - Инфа о пользователе    POST (Залогиненный)
 
 
 

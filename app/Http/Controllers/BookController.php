@@ -23,8 +23,13 @@ class BookController extends Controller
      * @param int $user_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(int $user_id)
+    public function index()
     {
+        if (! $token = JWTAuth::parseToken()) {
+            return response()->json($request, 403);
+        }
+        $user_id = auth()->user()->id;
+
         if($user_id > 0) {
             $book = Book::where('user_id', $user_id)->get();
             if(empty($book->toArray())) {
