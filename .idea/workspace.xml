@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aaa7037e-935e-477c-aaff-5fca6d28542c" name="Default Changelist" comment="" />
+    <list default="true" id="aaa7037e-935e-477c-aaff-5fca6d28542c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/GoCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/GoCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BookController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookController.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +199,10 @@
       <workItem from="1592543266607" duration="6769000" />
       <workItem from="1592681273344" duration="983000" />
       <workItem from="1592726993894" duration="3298000" />
+<<<<<<< HEAD
       <workItem from="1592739570692" duration="896000" />
+=======
+>>>>>>> 8ab0bc2... backUp
     </task>
     <servers />
   </component>

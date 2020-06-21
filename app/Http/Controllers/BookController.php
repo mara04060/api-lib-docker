@@ -8,11 +8,24 @@ use App\User;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\AuthRequestt;
 use App\Http\Requests\BookRequest;
-use Tymon\JWTAuth\Facades\JWTAuth;
+
 
 
 class BookController extends Controller
 {
+
+    /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['all_book', 'registration']]);
+    }
+
+
+
     /**
      * @param int $user_id
      * @return \Illuminate\Http\JsonResponse
@@ -20,10 +33,6 @@ class BookController extends Controller
     public function index()
     {
 
-        $user = JWTAuth::parseToken()->authenticate();
-        if (empty($user)) {
-            return response()->json('Error Anauthorized', 403);
-        }
         $user_id = auth()->user()->id;
 
         if($user_id > 0) {
@@ -52,12 +61,6 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-
-
-        $user = JWTAuth::parseToken()->authenticate ();
-        if (empty($user)) {
-            return response()->json('Error Anauthorized', 403);
-        }
         $arr_req = $request->validated();
         $arr_req['book_cover'] = $this->base64_to_file($arr_req['book_cover'] );
         $book = Book::create($arr_req);
@@ -68,12 +71,6 @@ class BookController extends Controller
     public function update(StoreBookRequest $request, int $id)
     {
         if(!empty($id)) {
-
-            $user = JWTAuth::parseToken()->authenticate();
-            if (empty($user)) {
-                return response()->json('Error Anauthorized', 403);
-            }
-
             $book = Book::findOrFail($id);
             $arr_req = $request->validated();
             if(!empty($arr_req)) {
@@ -95,10 +92,6 @@ class BookController extends Controller
      */
     public function destroy(int $id)
     {
-        $user = JWTAuth::parseToken()->authenticate();
-        if (empty($user)) {
-            return response()->json('Error Anauthorized', 403);
-        }
 
         if(!empty($id)) {
             $book = Book::findOrFail($id);
@@ -113,7 +106,7 @@ class BookController extends Controller
      * @param $output_file
      * @return mixed
      */
-    function base64_to_file($base64_string) {
+    protected function base64_to_file($base64_string) {
         $output_file = md5("".rand(1,999).time().date("ssiihhDDmmYYYY").rand(1,999)).".png";
         $ifp = fopen(env('PATH_IMAGE').$output_file, "w");
         chmod(''.env('PATH_IMAGE').$output_file, 0777);

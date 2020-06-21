@@ -39,6 +39,6 @@ class GoCommand extends Command
     public function handle()
     {
         Artisan::call('migrate');
-        Artisan::call('seed');
+        Artisan::call('db:seed');
     }
 }
