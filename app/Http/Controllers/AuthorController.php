@@ -26,8 +26,10 @@ class AuthorController extends Controller
      */
     public function author_in_books(int $author_id)
     {
-        $book = Book::where('author_id', $author_id)->get();
-        return response()->json($book, 200);
+        if (!empty($author_id)) {
+            $book = Book::where('author_id', $author_id)->get();
+            return response()->json($book, 200);
+        }
     }
 
 

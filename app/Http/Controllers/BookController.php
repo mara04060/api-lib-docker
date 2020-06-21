@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Book;
-use App\User;
-
 use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\AuthRequestt;
-use App\Http\Requests\BookRequest;
-
+use http\Exception;
+use Illuminate\Database\QueryException;
 
 
 class BookController extends Controller
@@ -21,29 +18,25 @@ class BookController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['all_book', 'registration']]);
+        $this->middleware('auth:api', ['except' => ['all_book', 'base64_to_file']]);
     }
 
 
-
     /**
-     * @param int $user_id
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
 
         $user_id = auth()->user()->id;
-
         if($user_id > 0) {
             $book = Book::where('user_id', $user_id)->get();
             if(empty($book->toArray())) {
-
                 return response()->json([],404);
             }
             return response()->json($book);
         }
-        return response()->json([],404);
+        return response()->json(['Error 404'],404);
     }
 
     /**
@@ -63,48 +56,58 @@ class BookController extends Controller
     {
         $arr_req = $request->validated();
         $arr_req['book_cover'] = $this->base64_to_file($arr_req['book_cover'] );
-        $book = Book::create($arr_req);
+        try {
+            $book = Book::create($arr_req);
+        } catch ( QueryException $e) {
+            return response()->json(['Error Create new book'], 400);
+        }
         return response()->json($book, 201);
     }
 
 
+    /**
+     * @param StoreBookRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(StoreBookRequest $request, int $id)
     {
         if(!empty($id)) {
-            $book = Book::findOrFail($id);
-            $arr_req = $request->validated();
-            if(!empty($arr_req)) {
-                $arr_req['book_cover'] = $this->base64_to_file($arr_req['book_cover'] );
+            $book = $this->findBook($id);
+            if(!empty($book)) {
+                $arr_req = $request->validated();
+                if(!empty($arr_req)) {
+                    $arr_req['book_cover'] = $this->base64_to_file($arr_req['book_cover'] );
+                }
+                $book->fill($arr_req);
+                $book->save();
+                return response()->json($book);
             }
-            $book->fill($arr_req);
-            $book->save();
-            return response()->json($book);
+
         }
-        return response()->json('', 404);
+        return response()->json('Not Found Book', 404);
 
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Book  $book
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function destroy(int $id)
     {
-
         if(!empty($id)) {
-            $book = Book::findOrFail($id);
-            unlink(env('PATH_IMAGE').$book->book_cover);
-            if($book->delete()) return response(null, 204);
+            $book = $this->findBook($id);
+            if(!empty($book)) {
+                unlink(env('PATH_IMAGE').$book->book_cover);
+                if($book->delete()) return response(null, 204);
+            }
         }
-        return response(null, 404);
+        return response('Not Found Book', 404);
     }
 
     /**
      * @param $base64_string
-     * @param $output_file
-     * @return mixed
+     * @return string
      */
     protected function base64_to_file($base64_string) {
         $output_file = md5("".rand(1,999).time().date("ssiihhDDmmYYYY").rand(1,999)).".png";
@@ -116,4 +119,15 @@ class BookController extends Controller
         return $output_file;
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    protected function findBook(int $id) {
+        $book = Book::find($id);
+        if(empty($book)){
+            return null;
+        }
+        return $book;
+    }
 }

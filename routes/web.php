@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['prefix'=>'api/v1.0'], function()
+$vers = "v1.0";
+Route::group(['prefix'=>'api/'.$vers], function()
 {
     Route::get('/book/all', 'BookController@all_book');
     Route::get('/book/user', 'BookController@index');

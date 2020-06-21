@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -43,8 +44,12 @@ class AuthController extends Controller
         $user->name = $name;
         $user->email = $email;
         $user->password = Hash::make($password);
-        $user->save();
 
+        try {
+            $user->save();
+        } catch ( QueryException $e) {
+            return response()->json(['Error Duplicate User'], 400);
+        }
         return response()->json(['message' => 'Successfully registration!']);
     }
 
