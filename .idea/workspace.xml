@@ -146,7 +146,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../telegram.loc" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -193,6 +193,9 @@
       <workItem from="1592487484541" duration="8878000" />
       <workItem from="1592500672754" duration="15344000" />
       <workItem from="1592543266607" duration="6769000" />
+      <workItem from="1592681273344" duration="983000" />
+      <workItem from="1592726993894" duration="3298000" />
+      <workItem from="1592739570692" duration="896000" />
     </task>
     <servers />
   </component>

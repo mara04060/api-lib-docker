@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class GoCommand extends Command
 {
@@ -37,7 +38,7 @@ class GoCommand extends Command
      */
     public function handle()
     {
-        Artisan::call('db:migrate');
-        Artisan::call('db:seed');
+        Artisan::call('migrate');
+        Artisan::call('seed');
     }
 }

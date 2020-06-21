@@ -10,12 +10,6 @@ use App\Http\Requests\AuthRequestt;
 use App\Http\Requests\BookRequest;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-//use Tymon\JWTAuth\JWTAuth;
-
-
-//
-//use http\Env\Request;
-//use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -25,7 +19,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        if (! $token = JWTAuth::parseToken()) {
+
+        $user = JWTAuth::parseToken()->authenticate();
+        if (empty($user)) {
             return response()->json('Error Anauthorized', 403);
         }
         $user_id = auth()->user()->id;
@@ -58,8 +54,9 @@ class BookController extends Controller
     {
 
 
-        if (! $token = JWTAuth::parseToken()) {
-            return response()->json($request, 403);
+        $user = JWTAuth::parseToken()->authenticate ();
+        if (empty($user)) {
+            return response()->json('Error Anauthorized', 403);
         }
         $arr_req = $request->validated();
         $arr_req['book_cover'] = $this->base64_to_file($arr_req['book_cover'] );
@@ -72,8 +69,9 @@ class BookController extends Controller
     {
         if(!empty($id)) {
 
-            if (! $token = JWTAuth::parseToken()) {
-                return response()->json($request, 403);
+            $user = JWTAuth::parseToken()->authenticate();
+            if (empty($user)) {
+                return response()->json('Error Anauthorized', 403);
             }
 
             $book = Book::findOrFail($id);
@@ -97,8 +95,9 @@ class BookController extends Controller
      */
     public function destroy(int $id)
     {
-        if (! $token = JWTAuth::parseToken()) {
-            return response()->json($request, 403);
+        $user = JWTAuth::parseToken()->authenticate();
+        if (empty($user)) {
+            return response()->json('Error Anauthorized', 403);
         }
 
         if(!empty($id)) {
